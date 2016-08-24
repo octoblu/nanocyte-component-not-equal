@@ -9,6 +9,20 @@ describe 'NotEqual', ->
     expect(@sut).to.be.an.instanceOf ReturnValue
 
   describe '->onEnvelope', ->
+    describe 'when called with boolean true', ->
+      beforeEach ->
+        @result = @sut.onEnvelope config: {left: true, right: true}, message: 'anything'
+
+      it 'should not return the message', ->
+        expect(@result).not.to.exist
+
+    describe 'when called with boolean true and false', ->
+      beforeEach ->
+        @result = @sut.onEnvelope config: {left: true, right: false}, message: 'anything'
+
+      it 'should not return the message', ->
+        expect(@result).to.deep.equal 'anything'
+
     describe 'when called with an equal left and right', ->
       beforeEach ->
         @result = @sut.onEnvelope config: {left: 2, right: 2}, message: 'anything'
