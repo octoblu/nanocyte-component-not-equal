@@ -64,3 +64,17 @@ describe 'NotEqual', ->
 
       it 'should return the message', ->
         expect(@result).to.deep.equal 'anything'
+
+    describe 'when left and right are objectorially equal', ->
+      beforeEach ->
+        @result = @sut.onEnvelope config: {left: {name: 'Aaron', height: '5 feet tall'}, right: { name: 'Aaron', height: '5 feet tall'}}, message: 'anything'
+
+      it 'should not return the message', ->
+        expect(@result).not.to.exist
+
+    describe 'when left and right are objectorially nonequal', ->
+      beforeEach ->
+        @result = @sut.onEnvelope config: {left: {name: 'Aaron', height: '11 feet tall'}, right: { name: 'Aaron', height: '5 feet tall'}}, message: 'anything'
+
+      it 'should return the message', ->
+        expect(@result).to.deep.equal 'anything'
